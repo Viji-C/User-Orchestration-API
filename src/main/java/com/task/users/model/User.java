@@ -2,6 +2,9 @@ package com.task.users.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.persistence.Access;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
@@ -9,6 +12,10 @@ import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,18 +31,33 @@ public class User {
 	@Id
 	private Long id;
 
+	@NotBlank(message = "First name is required")
+    @Size(max = 50, message = "First name cannot exceed 50 characters")
 	private String firstName;
+	
+	@NotBlank(message = "Last name is required")
+    @Size(max = 50, message = "Last name cannot exceed 50 characters")
 	private String lastName;
+	
+	@Size(max = 50, message = "Maiden name cannot exceed 50 characters")
 	private String maidenName;
+	
+	@Min(value = 0, message = "Age must be positive")
 	private Integer age;
 	private String gender;
+	
+	@Email(message = "Email should be valid")
+    @NotBlank(message = "Email is required")
 	private String email;
 	private String phone;
+	
+	@NotBlank(message = "Username is required")
+	@Size(max = 50, message = "Username cannot exceed 50 characters")
 	private String username;
+	
 	private String password;
 
 	@Column(columnDefinition = "DATE")
-//    @DateTimeFormat(pattern = "yyyy-M-d")
 	private LocalDate birthDate;
 
 	private String image;
