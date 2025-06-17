@@ -2,6 +2,8 @@ package com.task.users.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +43,15 @@ public class UserService {
 			log.error("Failed to load users: {}", e.getMessage());
 			throw new DataLoadingException("Failed to load users from external API");
 		}
+	}
+
+	@Transactional
+	public Page<User> searchUsers(String search, Pageable pageable) {
+		log.debug("Searching users with query: {}", search);
+		if (search == null || search.trim().isEmpty()) {
+			return userRepository.findAll(pageable);
+		}
+		return userRepository.searchUsers(search, pageable);
 	}
 
 	public User getUserById(Long userId) {
