@@ -11,20 +11,17 @@ import org.springframework.web.reactive.function.client.WebClient;
 import com.task.users.dto.UserDTO;
 import com.task.users.exception.ExternalApiException;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ExternalApiService {
 
 	private final RetryTemplate retryTemplate;
 	private final ExternalApiProperties properties;
-
-	public ExternalApiService(RetryTemplate retryTemplate, ExternalApiProperties properties) {
-		this.retryTemplate = retryTemplate;
-		this.properties = properties;
-	}
 
 	public List<UserDTO> fetchAllUsers() {
 		log.debug("Fetching users from external API...");

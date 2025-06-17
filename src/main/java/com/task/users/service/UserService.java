@@ -14,21 +14,17 @@ import com.task.users.model.User;
 import com.task.users.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Transactional
 @Slf4j
+@RequiredArgsConstructor
 public class UserService {
 	private final UserRepository userRepository;
 	private final UserMapper userMapper;
 	private final ExternalApiService externalApiService;
-
-	public UserService(UserRepository userRepository, UserMapper userMapper, ExternalApiService externalApiService) {
-		this.userRepository = userRepository;
-		this.userMapper = userMapper;
-		this.externalApiService = externalApiService;
-	}
 
 	@Transactional
 	public void loadUsersFromExternalApi() {
