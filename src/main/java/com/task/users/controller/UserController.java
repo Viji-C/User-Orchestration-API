@@ -42,19 +42,20 @@ public class UserController {
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
-	
-	@GetMapping
-    @Operation(summary = "Search users by text")
-    public ResponseEntity<Page<User>> searchUsers(
-            @RequestParam(required = false) String search,
-            @ParameterObject @PageableDefault(size = 20) Pageable pageable) {
-        log.debug("Searching users with query: {}", search);
-        return ResponseEntity.ok(userService.searchUsers(search, pageable));
-    }
 
-	@GetMapping("/{id}")
-	public ResponseEntity<User> getUser(@PathVariable Long id) {
-		return ResponseEntity.ok(userService.getUserById(id));
+	@GetMapping
+	@Operation(summary = "Search users by text")
+	public ResponseEntity<Page<User>> searchUsers(@RequestParam(required = false) String search,
+			@ParameterObject @PageableDefault(size = 20) Pageable pageable) {
+		log.debug("Searching users with query: {}", search);
+		return ResponseEntity.ok(userService.searchUsers(search, pageable));
+	}
+
+	@GetMapping("/{identifier}")
+	@Operation(summary = "Get user by ID or email")
+	public ResponseEntity<User> getUserByIdentifier(@PathVariable String identifier) {
+		log.debug("Fetching user with identifier: {}", identifier);
+		return ResponseEntity.ok(userService.findByIdOrEmail(identifier));
 	}
 
 }

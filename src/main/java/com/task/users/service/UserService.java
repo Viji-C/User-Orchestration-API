@@ -54,8 +54,17 @@ public class UserService {
 		return userRepository.searchUsers(search, pageable);
 	}
 
-	public User getUserById(Long userId) {
-		return userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+	@Transactional
+	public User findByIdOrEmail(String identifier) {
+		log.debug("Fetching user with identifier: {}", identifier);
+		try {
+			Long id = Long.parseLong(identifier);
+			return userRepository.findById(id)
+					.orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+		} catch (NumberFormatException e) {
+			return userRepository.findByEmail(identifier)
+					.orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + identifier));
+		}
 	}
 
 }
