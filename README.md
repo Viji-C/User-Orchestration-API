@@ -1,7 +1,5 @@
 # User Orchestration API
 
-# User Management API
-
 ## Overview
 RESTful API for loading and managing user data from dummyjson.com
 
