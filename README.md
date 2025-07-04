@@ -17,9 +17,9 @@ RESTful API for loading and managing user data from dummyjson.com
 ## Setup
 1. Clone the repository
 2. Build the project: `mvn clean install`
-3. Run the application using Docker \n
-   Build - docker build -t user-api . \n
-   Run - docker run -p 8082:8082 user-api \n
+3. Run the application using Docker< br / >
+   Build - docker build -t user-api .< br / >
+   Run - docker run -p 8082:8082 user-api< br / >
 
 **Optional**
 3. Run the application: `mvn spring-boot:run`
